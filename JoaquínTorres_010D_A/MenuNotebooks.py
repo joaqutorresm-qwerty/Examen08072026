@@ -34,24 +34,25 @@ def opcion_menu():
 
 #################################################
 
-def stock_marca(productos):
+def stock_marca(marca):
     marca = input("Ingrese la marca para buscar el stock: ")
     total = 0
     for marca, datos in productos.items():
         if datos[0] == marca.casefold():
-            unidades = productos[marca][1]
+            unidades = stock[marca][1]
             total += unidades
-    print(f"Total de unidades para el tipo: {total}")     
+    print(f"Total de unidades para la marca: {total}")
+
 #################################################
 
-def busqueda_precio(p_min, p_max):
+def busqueda_precio(p_min, p_max, marca):
     if busqueda_precio_menu():
         resultados = []
         for modelo, datos in stock.items():
             precio = datos[0]
             stock = datos[1]
             if p_min <= precio <= p_max and stock:
-                nombre = modelo[stock][1]
+                modelo = modelo[stock][1]
                 resultados.append(f"{marca} -- {modelo} -- {datos}")
                 resultados.sort()
 
@@ -108,12 +109,12 @@ def actualizar_precio_menu():
         if actualizar_precio(modelo, nuevo_precio):
             print("Precio actualizado.")
         else:
-            print("El codigo no existe.")
+            print("El modelo no existe.")
         
         repetir = input("Desea repetir el proceso? s/n: ").casefold()
-        if repetir == "n":
+        if repetir == "no":
             break
-        elif repetir == "s":
+        elif repetir == "si":
             return actualizar_precio_menu()
         else:
             print("Ingrese un dato valido")
